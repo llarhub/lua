@@ -1,0 +1,17 @@
+T CallInfo CallInfo
+T luaL_Buffer Buffer
+T luaL_Reg Reg
+T luaL_Stream Stream
+T lua_Alloc Alloc
+T lua_CFunction CFunction
+T lua_Debug Debug
+T lua_Hook Hook
+T lua_Integer Integer
+T lua_KContext KContext
+T lua_KFunction KFunction
+T lua_Number Number
+T lua_Reader Reader
+T lua_State State
+T lua_Unsigned Unsigned
+T lua_WarnFunction WarnFunction
+T lua_Writer Writer

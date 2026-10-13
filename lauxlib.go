@@ -2,6 +2,11 @@
 
 package lua
 
+import (
+	"github.com/goplus/lib/c"
+	"unsafe"
+)
+
 const GNAME = "_G"
 const ERRFILE = 6
 const LOADED_TABLE = "_LOADED"
@@ -9,3 +14,251 @@ const PRELOAD_TABLE = "_PRELOAD"
 const NOREF = -2
 const REFNIL = -1
 const FILEHANDLE = "FILE*"
+
+// * {======================================================
+// * Generic Buffer manipulation
+// * =======================================================
+type Buffer struct {
+	B    *c.Char
+	Size c.SizeT
+	N    c.SizeT
+	L    *State
+	Init _llcppg_anon_0
+}
+type Reg struct {
+	Name *c.Char
+	Func CFunction
+}
+type _llcppg_anon_0 struct {
+	_xgo_union [128]uint64
+}
+type Stream struct {
+	F      *c.FILE
+	Closef CFunction
+}
+
+// llgo:link (*State).Checkversion_ C.luaL_checkversion_
+func (self *State) Checkversion_(ver Number, sz c.SizeT) {
+}
+
+// llgo:link (*State).Getmetafield C.luaL_getmetafield
+func (self *State) Getmetafield(obj c.Int, e *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Callmeta C.luaL_callmeta
+func (self *State) Callmeta(obj c.Int, e *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).LTolstring C.luaL_tolstring
+func (self *State) LTolstring(idx c.Int, len *c.SizeT) *c.Char {
+	return nil
+}
+
+// llgo:link (*State).Argerror C.luaL_argerror
+func (self *State) Argerror(arg c.Int, extramsg *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Typeerror C.luaL_typeerror
+func (self *State) Typeerror(arg c.Int, tname *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Checklstring C.luaL_checklstring
+func (self *State) Checklstring(arg c.Int, l *c.SizeT) *c.Char {
+	return nil
+}
+
+// llgo:link (*State).Optlstring C.luaL_optlstring
+func (self *State) Optlstring(arg c.Int, def *c.Char, l *c.SizeT) *c.Char {
+	return nil
+}
+
+// llgo:link (*State).Checknumber C.luaL_checknumber
+func (self *State) Checknumber(arg c.Int) Number {
+	return 0
+}
+
+// llgo:link (*State).Optnumber C.luaL_optnumber
+func (self *State) Optnumber(arg c.Int, def Number) Number {
+	return 0
+}
+
+// llgo:link (*State).Checkinteger C.luaL_checkinteger
+func (self *State) Checkinteger(arg c.Int) Integer {
+	return 0
+}
+
+// llgo:link (*State).Optinteger C.luaL_optinteger
+func (self *State) Optinteger(arg c.Int, def Integer) Integer {
+	return 0
+}
+
+// llgo:link (*State).LCheckstack C.luaL_checkstack
+func (self *State) LCheckstack(sz c.Int, msg *c.Char) {
+}
+
+// llgo:link (*State).Checktype C.luaL_checktype
+func (self *State) Checktype(arg c.Int, t c.Int) {
+}
+
+// llgo:link (*State).Checkany C.luaL_checkany
+func (self *State) Checkany(arg c.Int) {
+}
+
+// llgo:link (*State).Newmetatable C.luaL_newmetatable
+func (self *State) Newmetatable(tname *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).LSetmetatable C.luaL_setmetatable
+func (self *State) LSetmetatable(tname *c.Char) {
+}
+
+// llgo:link (*State).Testudata C.luaL_testudata
+func (self *State) Testudata(ud c.Int, tname *c.Char) unsafe.Pointer {
+	return nil
+}
+
+// llgo:link (*State).Checkudata C.luaL_checkudata
+func (self *State) Checkudata(ud c.Int, tname *c.Char) unsafe.Pointer {
+	return nil
+}
+
+// llgo:link (*State).Where C.luaL_where
+func (self *State) Where(lvl c.Int) {
+}
+
+// llgo:link (*State).LError C.luaL_error
+func (self *State) LError(fmt *c.Char, __llgo_va_list ...any) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Checkoption C.luaL_checkoption
+func (self *State) Checkoption(arg c.Int, def *c.Char, lst **c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Fileresult C.luaL_fileresult
+func (self *State) Fileresult(stat c.Int, fname *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Execresult C.luaL_execresult
+func (self *State) Execresult(stat c.Int) c.Int {
+	return 0
+}
+
+//go:linkname LAlloc C.luaL_alloc
+func LAlloc(ud unsafe.Pointer, ptr unsafe.Pointer, osize c.SizeT, nsize c.SizeT) unsafe.Pointer
+
+// llgo:link (*State).Ref C.luaL_ref
+func (self *State) Ref(t c.Int) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Unref C.luaL_unref
+func (self *State) Unref(t c.Int, ref c.Int) {
+}
+
+// llgo:link (*State).Loadfilex C.luaL_loadfilex
+func (self *State) Loadfilex(filename *c.Char, mode *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Loadbufferx C.luaL_loadbufferx
+func (self *State) Loadbufferx(buff *c.Char, sz c.SizeT, name *c.Char, mode *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Loadstring C.luaL_loadstring
+func (self *State) Loadstring(s *c.Char) c.Int {
+	return 0
+}
+
+//go:linkname LNewstate C.luaL_newstate
+func LNewstate() *State
+
+// llgo:link (*State).Makeseed C.luaL_makeseed
+func (self *State) Makeseed() c.Uint {
+	return 0
+}
+
+// llgo:link (*State).LLen C.luaL_len
+func (self *State) LLen(idx c.Int) Integer {
+	return 0
+}
+
+// llgo:link (*Buffer).Addgsub C.luaL_addgsub
+func (self *Buffer) Addgsub(s *c.Char, p *c.Char, r *c.Char) {
+}
+
+// llgo:link (*State).Gsub C.luaL_gsub
+func (self *State) Gsub(s *c.Char, p *c.Char, r *c.Char) *c.Char {
+	return nil
+}
+
+// llgo:link (*State).Setfuncs C.luaL_setfuncs
+func (self *State) Setfuncs(l *Reg, nup c.Int) {
+}
+
+// llgo:link (*State).Getsubtable C.luaL_getsubtable
+func (self *State) Getsubtable(idx c.Int, fname *c.Char) c.Int {
+	return 0
+}
+
+// llgo:link (*State).Traceback C.luaL_traceback
+func (self *State) Traceback(L1 *State, msg *c.Char, level c.Int) {
+}
+
+// llgo:link (*State).Requiref C.luaL_requiref
+func (self *State) Requiref(modname *c.Char, openf CFunction, glb c.Int) {
+}
+func (p *_llcppg_anon_0) XGof_ref_u() *c.LongDouble {
+	return (*c.LongDouble)(unsafe.Pointer(p))
+}
+func (p *_llcppg_anon_0) XGof_ref_s() *unsafe.Pointer {
+	return (*unsafe.Pointer)(unsafe.Pointer(p))
+}
+func (p *_llcppg_anon_0) XGof_ref_l() *c.LongLong {
+	return (*c.LongLong)(unsafe.Pointer(p))
+}
+func (p *_llcppg_anon_0) XGof_ref_b() *[1024]c.Char {
+	return (*[1024]c.Char)(unsafe.Pointer(p))
+}
+
+// llgo:link (*State).Buffinit C.luaL_buffinit
+func (self *State) Buffinit(B *Buffer) {
+}
+
+// llgo:link (*Buffer).Prepbuffsize C.luaL_prepbuffsize
+func (self *Buffer) Prepbuffsize(sz c.SizeT) *c.Char {
+	return nil
+}
+
+// llgo:link (*Buffer).Addlstring C.luaL_addlstring
+func (self *Buffer) Addlstring(s *c.Char, l c.SizeT) {
+}
+
+// llgo:link (*Buffer).Addstring C.luaL_addstring
+func (self *Buffer) Addstring(s *c.Char) {
+}
+
+// llgo:link (*Buffer).Addvalue C.luaL_addvalue
+func (self *Buffer) Addvalue() {
+}
+
+// llgo:link (*Buffer).Pushresult C.luaL_pushresult
+func (self *Buffer) Pushresult() {
+}
+
+// llgo:link (*Buffer).Pushresultsize C.luaL_pushresultsize
+func (self *Buffer) Pushresultsize(sz c.SizeT) {
+}
+
+// llgo:link (*State).Buffinitsize C.luaL_buffinitsize
+func (self *State) Buffinitsize(B *Buffer, sz c.SizeT) *c.Char {
+	return nil
+}

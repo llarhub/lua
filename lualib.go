@@ -2,6 +2,8 @@
 
 package lua
 
+import "github.com/goplus/lib/c"
+
 const GLIBK = 1
 const LOADLIBNAME = "package"
 const LOADLIBK = 2
@@ -21,3 +23,59 @@ const TABLIBNAME = "table"
 const TABLIBK = 256
 const UTF8LIBNAME = "utf8"
 const UTF8LIBK = 512
+
+// llgo:link (*State).LuaopenBase C.luaopen_base
+func (self *State) LuaopenBase() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenPackage C.luaopen_package
+func (self *State) LuaopenPackage() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenCoroutine C.luaopen_coroutine
+func (self *State) LuaopenCoroutine() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenDebug C.luaopen_debug
+func (self *State) LuaopenDebug() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenIo C.luaopen_io
+func (self *State) LuaopenIo() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenMath C.luaopen_math
+func (self *State) LuaopenMath() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenOs C.luaopen_os
+func (self *State) LuaopenOs() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenString C.luaopen_string
+func (self *State) LuaopenString() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenTable C.luaopen_table
+func (self *State) LuaopenTable() c.Int {
+	return 0
+}
+
+// llgo:link (*State).LuaopenUtf8 C.luaopen_utf8
+func (self *State) LuaopenUtf8() c.Int {
+	return 0
+}
+
+// open selected libraries
+//
+// llgo:link (*State).Openselectedlibs C.luaL_openselectedlibs
+func (self *State) Openselectedlibs(load c.Int, preload c.Int) {
+}

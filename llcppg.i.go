@@ -2,4 +2,5 @@
 
 package lua
 
+const XGoPackage = true
 const LLGoPackage = "link: $(pkg-config --libs lua)"
