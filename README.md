@@ -5,4 +5,4 @@
 [![LLGo](https://img.shields.io/badge/powered_by-LLGo-green.svg)](https://github.com/xgo-dev/llgo)
 [![XGo](https://img.shields.io/badge/project-XGo-blue.svg)](https://github.com/goplus/xgo)
 
-LLGo bindings for Lua, enabling XGo/Go programs to embed the Lua interpreter, run Lua scripts, and exchange values and functions with Lua through the Lua C API.
+LLGo bindings for Lua 5.5.1, enabling XGo/Go programs to embed the Lua interpreter, run Lua scripts, and exchange values and functions with Lua through the Lua C API.
