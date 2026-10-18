@@ -8,79 +8,150 @@ import (
 )
 
 const AUTHORS = "R. Ierusalimschy, L. H. de Figueiredo, W. Celes"
-const VERSION_MAJOR_N = 5
-const VERSION_MINOR_N = 5
-const VERSION_RELEASE_N = 1
-const VERSION_NUM = 505
-const VERSION_RELEASE_NUM = 50501
+const (
+	VERSION_MAJOR_N   = 5
+	VERSION_MINOR_N   = 5
+	VERSION_RELEASE_N = 1
+)
+const (
+	VERSION_NUM         = 505
+	VERSION_RELEASE_NUM = 50501
+)
+
+// mark for precompiled code ('<esc>Lua')
 const SIGNATURE = "\x1bLua"
+
+// option for multiple returns in 'lua_pcall' and 'lua_call'
 const MULTRET = -1
-const OK = 0
-const YIELD = 1
-const ERRRUN = 2
-const ERRSYNTAX = 3
-const ERRMEM = 4
-const ERRERR = 5
+
+// thread status
+const (
+	OK        = 0
+	YIELD     = 1
+	ERRRUN    = 2
+	ERRSYNTAX = 3
+	ERRMEM    = 4
+	ERRERR    = 5
+)
+
+// * basic types
 const TNONE = -1
-const TNIL = 0
-const TBOOLEAN = 1
-const TLIGHTUSERDATA = 2
-const TNUMBER = 3
-const TSTRING = 4
-const TTABLE = 5
-const TFUNCTION = 6
-const TUSERDATA = 7
-const TTHREAD = 8
+const (
+	TNIL           = 0
+	TBOOLEAN       = 1
+	TLIGHTUSERDATA = 2
+	TNUMBER        = 3
+	TSTRING        = 4
+	TTABLE         = 5
+	TFUNCTION      = 6
+	TUSERDATA      = 7
+	TTHREAD        = 8
+)
 const NUMTYPES = 9
+
+// minimum Lua stack available to a C function
 const MINSTACK = 20
-const RIDX_GLOBALS = 2
-const RIDX_MAINTHREAD = 3
-const RIDX_LAST = 3
-const OPADD = 0
-const OPSUB = 1
-const OPMUL = 2
-const OPMOD = 3
-const OPPOW = 4
-const OPDIV = 5
-const OPIDIV = 6
-const OPBAND = 7
-const OPBOR = 8
-const OPBXOR = 9
-const OPSHL = 10
-const OPSHR = 11
-const OPUNM = 12
-const OPBNOT = 13
-const OPEQ = 0
-const OPLT = 1
-const OPLE = 2
-const GCSTOP = 0
-const GCRESTART = 1
-const GCCOLLECT = 2
-const GCCOUNT = 3
-const GCCOUNTB = 4
-const GCSTEP = 5
-const GCISRUNNING = 6
-const GCGEN = 7
-const GCINC = 8
-const GCPARAM = 9
-const GCPMINORMUL = 0
-const GCPMAJORMINOR = 1
-const GCPMINORMAJOR = 2
-const GCPPAUSE = 3
-const GCPSTEPMUL = 4
-const GCPSTEPSIZE = 5
+
+// index 1 is reserved for the reference mechanism
+const (
+	RIDX_GLOBALS    = 2
+	RIDX_MAINTHREAD = 3
+	RIDX_LAST       = 3
+)
+const (
+	// ORDER TM, ORDER OP
+	OPADD  = 0
+	OPSUB  = 1
+	OPMUL  = 2
+	OPMOD  = 3
+	OPPOW  = 4
+	OPDIV  = 5
+	OPIDIV = 6
+	OPBAND = 7
+	OPBOR  = 8
+	OPBXOR = 9
+	OPSHL  = 10
+	OPSHR  = 11
+	OPUNM  = 12
+	OPBNOT = 13
+)
+const (
+	OPEQ = 0
+	OPLT = 1
+	OPLE = 2
+)
+const (
+	GCSTOP      = 0
+	GCRESTART   = 1
+	GCCOLLECT   = 2
+	GCCOUNT     = 3
+	GCCOUNTB    = 4
+	GCSTEP      = 5
+	GCISRUNNING = 6
+	GCGEN       = 7
+	GCINC       = 8
+	GCPARAM     = 9
+)
+
+// parameters for generational mode
+const (
+	GCPMINORMUL = 0
+	// control shift major->minor
+	GCPMAJORMINOR = 1
+	// control shift minor->major
+	GCPMINORMAJOR = 2
+)
+
+// parameters for incremental mode
+const (
+	GCPPAUSE = 3
+	// GC "speed"
+	GCPSTEPMUL = 4
+	// GC granularity
+	GCPSTEPSIZE = 5
+)
+
+// number of parameters
 const GCPN = 6
 const N2SBUFFSZ = 64
-const HOOKCALL = 0
-const HOOKRET = 1
-const HOOKLINE = 2
-const HOOKCOUNT = 3
-const HOOKTAILCALL = 4
-const MASKCALL = 1
-const MASKRET = 2
-const MASKLINE = 4
-const MASKCOUNT = 8
 
+// * Event codes
+const (
+	HOOKCALL     = 0
+	HOOKRET      = 1
+	HOOKLINE     = 2
+	HOOKCOUNT    = 3
+	HOOKTAILCALL = 4
+)
+
+// * Event masks
+const (
+	MASKCALL  = 1
+	MASKRET   = 2
+	MASKLINE  = 4
+	MASKCOUNT = 8
+)
+
+type Debug struct {
+	Event           c.Int
+	Name            *c.Char
+	Namewhat        *c.Char
+	What            *c.Char
+	Source          *c.Char
+	Srclen          c.SizeT
+	Currentline     c.Int
+	Linedefined     c.Int
+	Lastlinedefined c.Int
+	Nups            uint8
+	Nparams         uint8
+	Isvararg        c.Char
+	Extraargs       uint8
+	Istailcall      c.Char
+	Ftransfer       c.Int
+	Ntransfer       c.Int
+	ShortSrc        [60]c.Char
+	ICi             *CallInfo
+}
 type State struct {
 }
 
@@ -123,26 +194,6 @@ type Alloc = func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer, 
 //
 // llgo:type C
 type WarnFunction = func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 *c.Char, _llcppg_param3 c.Int)
-type Debug struct {
-	Event           c.Int
-	Name            *c.Char
-	Namewhat        *c.Char
-	What            *c.Char
-	Source          *c.Char
-	Srclen          c.SizeT
-	Currentline     c.Int
-	Linedefined     c.Int
-	Lastlinedefined c.Int
-	Nups            uint8
-	Nparams         uint8
-	Isvararg        c.Char
-	Extraargs       uint8
-	Istailcall      c.Char
-	Ftransfer       c.Int
-	Ntransfer       c.Int
-	ShortSrc        [60]c.Char
-	ICi             *CallInfo
-}
 
 // * Functions to be called by the debugger in specific events
 //
@@ -170,10 +221,8 @@ func (self *State) Newthread() *State {
 	return self
 }
 
-// llgo:link (*State).Closethread C.lua_closethread
-func (self *State) Closethread(from *State) c.Int {
-	return 0
-}
+//go:linkname Closethread C.lua_closethread
+func Closethread(L *State, from *State) c.Int
 
 // llgo:link (*State).Atpanic C.lua_atpanic
 func (self *State) Atpanic(panicf CFunction) CFunction {
@@ -222,8 +271,6 @@ func (self *State) Checkstack(n c.Int) c.Int {
 func (self *State) Xmove(to *State, n c.Int) {
 }
 
-// * access functions (stack -> C)
-//
 // llgo:link (*State).Isnumber C.lua_isnumber
 func (self *State) Isnumber(idx c.Int) c.Int {
 	return 0
@@ -528,8 +575,6 @@ func (self *State) Gc(what c.Int, __llgo_va_list ...any) c.Int {
 	return 0
 }
 
-// * miscellaneous functions
-//
 // llgo:link (*State).Error C.lua_error
 func (self *State) Error() c.Int {
 	return 0

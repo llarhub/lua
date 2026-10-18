@@ -5,24 +5,42 @@ package lua
 import "github.com/goplus/lib/c"
 
 const GLIBK = 1
-const LOADLIBNAME = "package"
-const LOADLIBK = 2
-const COLIBNAME = "coroutine"
-const COLIBK = 4
-const DBLIBNAME = "debug"
-const DBLIBK = 8
-const IOLIBNAME = "io"
-const IOLIBK = 16
-const MATHLIBNAME = "math"
-const MATHLIBK = 32
-const OSLIBNAME = "os"
-const OSLIBK = 64
-const STRLIBNAME = "string"
-const STRLIBK = 128
-const TABLIBNAME = "table"
-const TABLIBK = 256
-const UTF8LIBNAME = "utf8"
-const UTF8LIBK = 512
+const (
+	LOADLIBNAME = "package"
+	LOADLIBK    = 2
+)
+const (
+	COLIBNAME = "coroutine"
+	COLIBK    = 4
+)
+const (
+	DBLIBNAME = "debug"
+	DBLIBK    = 8
+)
+const (
+	IOLIBNAME = "io"
+	IOLIBK    = 16
+)
+const (
+	MATHLIBNAME = "math"
+	MATHLIBK    = 32
+)
+const (
+	OSLIBNAME = "os"
+	OSLIBK    = 64
+)
+const (
+	STRLIBNAME = "string"
+	STRLIBK    = 128
+)
+const (
+	TABLIBNAME = "table"
+	TABLIBK    = 256
+)
+const (
+	UTF8LIBNAME = "utf8"
+	UTF8LIBK    = 512
+)
 
 // llgo:link (*State).LuaopenBase C.luaopen_base
 func (self *State) LuaopenBase() c.Int {

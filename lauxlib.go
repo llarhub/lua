@@ -7,17 +7,29 @@ import (
 	"unsafe"
 )
 
+// global table
 const GNAME = "_G"
+
+// extra error code for 'luaL_loadfilex'
 const ERRFILE = 6
+
+// key, in the registry, for table of loaded modules
 const LOADED_TABLE = "_LOADED"
+
+// key, in the registry, for table of preloaded loaders
 const PRELOAD_TABLE = "_PRELOAD"
-const NOREF = -2
-const REFNIL = -1
+
+// predefined references
+const (
+	NOREF  = -2
+	REFNIL = -1
+)
 const FILEHANDLE = "FILE*"
 
-// * {======================================================
-// * Generic Buffer manipulation
-// * =======================================================
+type Reg struct {
+	Name *c.Char
+	Func CFunction
+}
 type Buffer struct {
 	B    *c.Char
 	Size c.SizeT
@@ -25,16 +37,12 @@ type Buffer struct {
 	L    *State
 	Init _llcppg_anon_0
 }
-type Reg struct {
-	Name *c.Char
-	Func CFunction
-}
-type _llcppg_anon_0 struct {
-	_xgo_union [128]uint64
-}
 type Stream struct {
 	F      *c.FILE
 	Closef CFunction
+}
+type _llcppg_anon_0 struct {
+	_xgo_union [128]uint64
 }
 
 // llgo:link (*State).Checkversion_ C.luaL_checkversion_

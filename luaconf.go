@@ -2,26 +2,58 @@
 
 package lua
 
-const INT_INT = 1
-const INT_LONG = 2
-const INT_LONGLONG = 3
-const FLOAT_FLOAT = 1
-const FLOAT_DOUBLE = 2
-const FLOAT_LONGDOUBLE = 3
-const INT_DEFAULT = 3
-const FLOAT_DEFAULT = 2
+// predefined options for LUA_INT_TYPE
+const (
+	INT_INT      = 1
+	INT_LONG     = 2
+	INT_LONGLONG = 3
+)
+
+// predefined options for LUA_FLOAT_TYPE
+const (
+	FLOAT_FLOAT      = 1
+	FLOAT_DOUBLE     = 2
+	FLOAT_LONGDOUBLE = 3
+)
+
+// Default configuration ('long long' and 'double', for 64-bit Lua)
+const (
+	INT_DEFAULT   = 3
+	FLOAT_DEFAULT = 2
+)
 const C89_NUMBERS = 0
-const INT_TYPE = 3
-const FLOAT_TYPE = 2
-const PATH_SEP = ";"
-const PATH_MARK = "?"
-const EXEC_DIR = "!"
+const (
+	INT_TYPE   = 3
+	FLOAT_TYPE = 2
+)
+
+// * LUA_PATH_SEP is the character that separates templates in a path.
+// * LUA_PATH_MARK is the string that marks the substitution points in a
+// * template.
+// * LUA_EXEC_DIR in a Windows path is replaced by the executable's
+// * directory.
+const (
+	PATH_SEP  = ";"
+	PATH_MARK = "?"
+	EXEC_DIR  = "!"
+)
 const ROOT = "/opt/homebrew/"
 const DIRSEP = "/"
+
+// * LUA_IGMARK is a mark to ignore all after it when building the
+// * module name (e.g., used to build the luaopen_ function name).
+// * Typically, the suffix after the mark is the module version,
+// * as in "mod-v1.2.so".
 const IGMARK = "-"
 const COMPAT_GLOBAL = 1
-const NUMBER_FRMLEN = ""
-const NUMBER_FMT = "%.15g"
-const NUMBER_FMT_N = "%.17g"
+const (
+	NUMBER_FRMLEN = ""
+	NUMBER_FMT    = "%.15g"
+	NUMBER_FMT_N  = "%.17g"
+)
 const INTEGER_FRMLEN = "ll"
+
+// @@ LUA_IDSIZE gives the maximum size for the description of the source
+// * of a function in debug information.
+// * CHANGE it if you want a different size.
 const IDSIZE = 60
