@@ -42,58 +42,58 @@ const (
 	UTF8LIBK    = 512
 )
 
-// llgo:link (*State).LuaopenBase C.luaopen_base
-func (self *State) LuaopenBase() c.Int {
+// llgo:link (*State).OpenBase C.luaopen_base
+func (self *State) OpenBase() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenPackage C.luaopen_package
-func (self *State) LuaopenPackage() c.Int {
+// llgo:link (*State).OpenPackage C.luaopen_package
+func (self *State) OpenPackage() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenCoroutine C.luaopen_coroutine
-func (self *State) LuaopenCoroutine() c.Int {
+// llgo:link (*State).OpenCoroutine C.luaopen_coroutine
+func (self *State) OpenCoroutine() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenDebug C.luaopen_debug
-func (self *State) LuaopenDebug() c.Int {
+// llgo:link (*State).OpenDebug C.luaopen_debug
+func (self *State) OpenDebug() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenIo C.luaopen_io
-func (self *State) LuaopenIo() c.Int {
+// llgo:link (*State).OpenIo C.luaopen_io
+func (self *State) OpenIo() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenMath C.luaopen_math
-func (self *State) LuaopenMath() c.Int {
+// llgo:link (*State).OpenMath C.luaopen_math
+func (self *State) OpenMath() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenOs C.luaopen_os
-func (self *State) LuaopenOs() c.Int {
+// llgo:link (*State).OpenOs C.luaopen_os
+func (self *State) OpenOs() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenString C.luaopen_string
-func (self *State) LuaopenString() c.Int {
+// llgo:link (*State).OpenString C.luaopen_string
+func (self *State) OpenString() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenTable C.luaopen_table
-func (self *State) LuaopenTable() c.Int {
+// llgo:link (*State).OpenTable C.luaopen_table
+func (self *State) OpenTable() c.Int {
 	return 0
 }
 
-// llgo:link (*State).LuaopenUtf8 C.luaopen_utf8
-func (self *State) LuaopenUtf8() c.Int {
+// llgo:link (*State).OpenUtf8 C.luaopen_utf8
+func (self *State) OpenUtf8() c.Int {
 	return 0
 }
 
 // open selected libraries
 //
-// llgo:link (*State).Openselectedlibs C.luaL_openselectedlibs
-func (self *State) Openselectedlibs(load c.Int, preload c.Int) {
+// llgo:link (*State).LOpenselectedlibs C.luaL_openselectedlibs
+func (self *State) LOpenselectedlibs(load c.Int, preload c.Int) {
 }

@@ -1,7 +1,7 @@
 T CallInfo CallInfo
-T luaL_Buffer Buffer
-T luaL_Reg Reg
-T luaL_Stream Stream
+T luaL_Buffer LBuffer
+T luaL_Reg LReg
+T luaL_Stream LStream
 T lua_Alloc Alloc
 T lua_CFunction CFunction
 T lua_Debug Debug
