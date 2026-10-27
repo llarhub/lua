@@ -2,11 +2,11 @@ package main
 
 import (
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func coroutineFunc(L *lua.State) {
-	L.Loadstring(c.Str(`
+	L.LLoadstring(c.Str(`
 	function coro_func()
 	   for i = 1, 5 do
 	       coroutine.yield(i)
@@ -18,10 +18,10 @@ func coroutineFunc(L *lua.State) {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 
 	coroutineFunc(L) // Load and get the coroutine function
 
