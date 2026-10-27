@@ -2,6 +2,8 @@
 
 package lua
 
+import "github.com/goplus/lib/c"
+
 // predefined options for LUA_INT_TYPE
 const (
 	INT_INT      = 1
@@ -57,3 +59,21 @@ const INTEGER_FRMLEN = "ll"
 // * of a function in debug information.
 // * CHANGE it if you want a different size.
 const IDSIZE = 60
+
+// @@ The following macros supply trivial compatibility for some
+// * changes in the API. The macros themselves document how to
+// * change your code to avoid using them.
+// * (Once more, these macros were officially removed in 5.3, but they are
+// * still available here.)
+func (self *State) Strlen(i c.Int) Unsigned {
+	return self.Rawlen(i)
+}
+func (self *State) Objlen(i c.Int) Unsigned {
+	return self.Rawlen(i)
+}
+func (self *State) Equal(idx1 c.Int, idx2 c.Int) c.Int {
+	return self.Compare(idx1, idx2, 0)
+}
+func (self *State) Lessthan(idx1 c.Int, idx2 c.Int) c.Int {
+	return self.Compare(idx1, idx2, 1)
+}

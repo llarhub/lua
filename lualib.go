@@ -42,58 +42,63 @@ const (
 	UTF8LIBK    = 512
 )
 
-// llgo:link (*State).OpenBase C.luaopen_base
+//llgo:link (*State).OpenBase C.luaopen_base
 func (self *State) OpenBase() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenPackage C.luaopen_package
+//llgo:link (*State).OpenPackage C.luaopen_package
 func (self *State) OpenPackage() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenCoroutine C.luaopen_coroutine
+//llgo:link (*State).OpenCoroutine C.luaopen_coroutine
 func (self *State) OpenCoroutine() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenDebug C.luaopen_debug
+//llgo:link (*State).OpenDebug C.luaopen_debug
 func (self *State) OpenDebug() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenIo C.luaopen_io
+//llgo:link (*State).OpenIo C.luaopen_io
 func (self *State) OpenIo() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenMath C.luaopen_math
+//llgo:link (*State).OpenMath C.luaopen_math
 func (self *State) OpenMath() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenOs C.luaopen_os
+//llgo:link (*State).OpenOs C.luaopen_os
 func (self *State) OpenOs() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenString C.luaopen_string
+//llgo:link (*State).OpenString C.luaopen_string
 func (self *State) OpenString() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenTable C.luaopen_table
+//llgo:link (*State).OpenTable C.luaopen_table
 func (self *State) OpenTable() c.Int {
 	return 0
 }
 
-// llgo:link (*State).OpenUtf8 C.luaopen_utf8
+//llgo:link (*State).OpenUtf8 C.luaopen_utf8
 func (self *State) OpenUtf8() c.Int {
 	return 0
 }
 
 // open selected libraries
 //
-// llgo:link (*State).LOpenselectedlibs C.luaL_openselectedlibs
+//llgo:link (*State).LOpenselectedlibs C.luaL_openselectedlibs
 func (self *State) LOpenselectedlibs(load c.Int, preload c.Int) {
+}
+
+// open all libraries
+func (self *State) LOpenlibs() {
+	self.LOpenselectedlibs(-1, 0)
 }

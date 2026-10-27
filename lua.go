@@ -169,35 +169,35 @@ type KContext = c.IntptrT
 
 // * Type for C functions registered with Lua
 //
-// llgo:type C
+//llgo:cdecl
 type CFunction = func(_llcppg_param1 *State) c.Int
 
 // * Type for continuation functions
 //
-// llgo:type C
+//llgo:cdecl
 type KFunction = func(_llcppg_param1 *State, _llcppg_param2 c.Int, _llcppg_param3 KContext) c.Int
 
 // * Type for functions that read/write blocks when loading/dumping Lua chunks
 //
-// llgo:type C
+//llgo:cdecl
 type Reader = func(_llcppg_param1 *State, _llcppg_param2 unsafe.Pointer, _llcppg_param3 *c.SizeT) *c.Char
 
-// llgo:type C
+//llgo:cdecl
 type Writer = func(_llcppg_param1 *State, _llcppg_param2 unsafe.Pointer, _llcppg_param3 c.SizeT, _llcppg_param4 unsafe.Pointer) c.Int
 
 // * Type for memory-allocation functions
 //
-// llgo:type C
+//llgo:cdecl
 type Alloc = func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer, _llcppg_param3 c.SizeT, _llcppg_param4 c.SizeT) unsafe.Pointer
 
 // * Type for warning functions
 //
-// llgo:type C
+//llgo:cdecl
 type WarnFunction = func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 *c.Char, _llcppg_param3 c.Int)
 
 // * Functions to be called by the debugger in specific events
 //
-// llgo:type C
+//llgo:cdecl
 type Hook = func(_llcppg_param1 *State, _llcppg_param2 *Debug)
 type CallInfo struct {
 }
@@ -212,11 +212,11 @@ var LuaIdent *c.Char
 //go:linkname Newstate C.lua_newstate
 func Newstate(f Alloc, ud unsafe.Pointer, seed c.Uint) *State
 
-// llgo:link (*State).Close C.lua_close
+//llgo:link (*State).Close C.lua_close
 func (self *State) Close() {
 }
 
-// llgo:link (*State).Newthread C.lua_newthread
+//llgo:link (*State).Newthread C.lua_newthread
 func (self *State) Newthread() *State {
 	return self
 }
@@ -224,456 +224,495 @@ func (self *State) Newthread() *State {
 //go:linkname Closethread C.lua_closethread
 func Closethread(L *State, from *State) c.Int
 
-// llgo:link (*State).Atpanic C.lua_atpanic
+//llgo:link (*State).Atpanic C.lua_atpanic
 func (self *State) Atpanic(panicf CFunction) CFunction {
 	return nil
 }
 
-// llgo:link (*State).Version C.lua_version
+//llgo:link (*State).Version C.lua_version
 func (self *State) Version() Number {
 	return 0
 }
 
 // * basic stack manipulation
 //
-// llgo:link (*State).Absindex C.lua_absindex
+//llgo:link (*State).Absindex C.lua_absindex
 func (self *State) Absindex(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Gettop C.lua_gettop
+//llgo:link (*State).Gettop C.lua_gettop
 func (self *State) Gettop() c.Int {
 	return 0
 }
 
-// llgo:link (*State).Settop C.lua_settop
+//llgo:link (*State).Settop C.lua_settop
 func (self *State) Settop(idx c.Int) {
 }
 
-// llgo:link (*State).Pushvalue C.lua_pushvalue
+//llgo:link (*State).Pushvalue C.lua_pushvalue
 func (self *State) Pushvalue(idx c.Int) {
 }
 
-// llgo:link (*State).Rotate C.lua_rotate
+//llgo:link (*State).Rotate C.lua_rotate
 func (self *State) Rotate(idx c.Int, n c.Int) {
 }
 
-// llgo:link (*State).Copy C.lua_copy
+//llgo:link (*State).Copy C.lua_copy
 func (self *State) Copy(fromidx c.Int, toidx c.Int) {
 }
 
-// llgo:link (*State).Checkstack C.lua_checkstack
+//llgo:link (*State).Checkstack C.lua_checkstack
 func (self *State) Checkstack(n c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Xmove C.lua_xmove
+//llgo:link (*State).Xmove C.lua_xmove
 func (self *State) Xmove(to *State, n c.Int) {
 }
 
-// llgo:link (*State).Isnumber C.lua_isnumber
+//llgo:link (*State).Isnumber C.lua_isnumber
 func (self *State) Isnumber(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Isstring C.lua_isstring
+//llgo:link (*State).Isstring C.lua_isstring
 func (self *State) Isstring(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Iscfunction C.lua_iscfunction
+//llgo:link (*State).Iscfunction C.lua_iscfunction
 func (self *State) Iscfunction(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Isinteger C.lua_isinteger
+//llgo:link (*State).Isinteger C.lua_isinteger
 func (self *State) Isinteger(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Isuserdata C.lua_isuserdata
+//llgo:link (*State).Isuserdata C.lua_isuserdata
 func (self *State) Isuserdata(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Type C.lua_type
+//llgo:link (*State).Type C.lua_type
 func (self *State) Type(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Typename C.lua_typename
+//llgo:link (*State).Typename C.lua_typename
 func (self *State) Typename(tp c.Int) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Tonumberx C.lua_tonumberx
+//llgo:link (*State).Tonumberx C.lua_tonumberx
 func (self *State) Tonumberx(idx c.Int, isnum *c.Int) Number {
 	return 0
 }
 
-// llgo:link (*State).Tointegerx C.lua_tointegerx
+//llgo:link (*State).Tointegerx C.lua_tointegerx
 func (self *State) Tointegerx(idx c.Int, isnum *c.Int) Integer {
 	return 0
 }
 
-// llgo:link (*State).Toboolean C.lua_toboolean
+//llgo:link (*State).Toboolean C.lua_toboolean
 func (self *State) Toboolean(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Tolstring C.lua_tolstring
+//llgo:link (*State).Tolstring C.lua_tolstring
 func (self *State) Tolstring(idx c.Int, len *c.SizeT) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Rawlen C.lua_rawlen
+//llgo:link (*State).Rawlen C.lua_rawlen
 func (self *State) Rawlen(idx c.Int) Unsigned {
 	return 0
 }
 
-// llgo:link (*State).Tocfunction C.lua_tocfunction
+//llgo:link (*State).Tocfunction C.lua_tocfunction
 func (self *State) Tocfunction(idx c.Int) CFunction {
 	return nil
 }
 
-// llgo:link (*State).Touserdata C.lua_touserdata
+//llgo:link (*State).Touserdata C.lua_touserdata
 func (self *State) Touserdata(idx c.Int) unsafe.Pointer {
 	return nil
 }
 
-// llgo:link (*State).Tothread C.lua_tothread
+//llgo:link (*State).Tothread C.lua_tothread
 func (self *State) Tothread(idx c.Int) *State {
 	return self
 }
 
-// llgo:link (*State).Topointer C.lua_topointer
+//llgo:link (*State).Topointer C.lua_topointer
 func (self *State) Topointer(idx c.Int) unsafe.Pointer {
 	return nil
 }
 
-// llgo:link (*State).Arith C.lua_arith
+//llgo:link (*State).Arith C.lua_arith
 func (self *State) Arith(op c.Int) {
 }
 
-// llgo:link (*State).Rawequal C.lua_rawequal
+//llgo:link (*State).Rawequal C.lua_rawequal
 func (self *State) Rawequal(idx1 c.Int, idx2 c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Compare C.lua_compare
+//llgo:link (*State).Compare C.lua_compare
 func (self *State) Compare(idx1 c.Int, idx2 c.Int, op c.Int) c.Int {
 	return 0
 }
 
 // * push functions (C -> stack)
 //
-// llgo:link (*State).Pushnil C.lua_pushnil
+//llgo:link (*State).Pushnil C.lua_pushnil
 func (self *State) Pushnil() {
 }
 
-// llgo:link (*State).Pushnumber C.lua_pushnumber
+//llgo:link (*State).Pushnumber C.lua_pushnumber
 func (self *State) Pushnumber(n Number) {
 }
 
-// llgo:link (*State).Pushinteger C.lua_pushinteger
+//llgo:link (*State).Pushinteger C.lua_pushinteger
 func (self *State) Pushinteger(n Integer) {
 }
 
-// llgo:link (*State).Pushlstring C.lua_pushlstring
+//llgo:link (*State).Pushlstring C.lua_pushlstring
 func (self *State) Pushlstring(s *c.Char, len c.SizeT) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Pushexternalstring C.lua_pushexternalstring
+//llgo:link (*State).Pushexternalstring C.lua_pushexternalstring
 func (self *State) Pushexternalstring(s *c.Char, len c.SizeT, falloc Alloc, ud unsafe.Pointer) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Pushstring C.lua_pushstring
+//llgo:link (*State).Pushstring C.lua_pushstring
 func (self *State) Pushstring(s *c.Char) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Pushvfstring C.lua_pushvfstring
+//llgo:link (*State).Pushvfstring C.lua_pushvfstring
 func (self *State) Pushvfstring(fmt *c.Char, argp c.VaList) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Pushfstring C.lua_pushfstring
+//llgo:link (*State).Pushfstring C.lua_pushfstring
 func (self *State) Pushfstring(fmt *c.Char, __llgo_va_list ...any) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Pushcclosure C.lua_pushcclosure
+//llgo:link (*State).Pushcclosure C.lua_pushcclosure
 func (self *State) Pushcclosure(fn CFunction, n c.Int) {
 }
 
-// llgo:link (*State).Pushboolean C.lua_pushboolean
+//llgo:link (*State).Pushboolean C.lua_pushboolean
 func (self *State) Pushboolean(b c.Int) {
 }
 
-// llgo:link (*State).Pushlightuserdata C.lua_pushlightuserdata
+//llgo:link (*State).Pushlightuserdata C.lua_pushlightuserdata
 func (self *State) Pushlightuserdata(p unsafe.Pointer) {
 }
 
-// llgo:link (*State).Pushthread C.lua_pushthread
+//llgo:link (*State).Pushthread C.lua_pushthread
 func (self *State) Pushthread() c.Int {
 	return 0
 }
 
 // * get functions (Lua -> stack)
 //
-// llgo:link (*State).Getglobal C.lua_getglobal
+//llgo:link (*State).Getglobal C.lua_getglobal
 func (self *State) Getglobal(name *c.Char) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Gettable C.lua_gettable
+//llgo:link (*State).Gettable C.lua_gettable
 func (self *State) Gettable(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Getfield C.lua_getfield
+//llgo:link (*State).Getfield C.lua_getfield
 func (self *State) Getfield(idx c.Int, k *c.Char) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Geti C.lua_geti
+//llgo:link (*State).Geti C.lua_geti
 func (self *State) Geti(idx c.Int, n Integer) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Rawget C.lua_rawget
+//llgo:link (*State).Rawget C.lua_rawget
 func (self *State) Rawget(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Rawgeti C.lua_rawgeti
+//llgo:link (*State).Rawgeti C.lua_rawgeti
 func (self *State) Rawgeti(idx c.Int, n Integer) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Rawgetp C.lua_rawgetp
+//llgo:link (*State).Rawgetp C.lua_rawgetp
 func (self *State) Rawgetp(idx c.Int, p unsafe.Pointer) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Createtable C.lua_createtable
+//llgo:link (*State).Createtable C.lua_createtable
 func (self *State) Createtable(narr c.Int, nrec c.Int) {
 }
 
-// llgo:link (*State).Newuserdatauv C.lua_newuserdatauv
+//llgo:link (*State).Newuserdatauv C.lua_newuserdatauv
 func (self *State) Newuserdatauv(sz c.SizeT, nuvalue c.Int) unsafe.Pointer {
 	return nil
 }
 
-// llgo:link (*State).Getmetatable C.lua_getmetatable
+//llgo:link (*State).Getmetatable C.lua_getmetatable
 func (self *State) Getmetatable(objindex c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Getiuservalue C.lua_getiuservalue
+//llgo:link (*State).Getiuservalue C.lua_getiuservalue
 func (self *State) Getiuservalue(idx c.Int, n c.Int) c.Int {
 	return 0
 }
 
 // * set functions (stack -> Lua)
 //
-// llgo:link (*State).Setglobal C.lua_setglobal
+//llgo:link (*State).Setglobal C.lua_setglobal
 func (self *State) Setglobal(name *c.Char) {
 }
 
-// llgo:link (*State).Settable C.lua_settable
+//llgo:link (*State).Settable C.lua_settable
 func (self *State) Settable(idx c.Int) {
 }
 
-// llgo:link (*State).Setfield C.lua_setfield
+//llgo:link (*State).Setfield C.lua_setfield
 func (self *State) Setfield(idx c.Int, k *c.Char) {
 }
 
-// llgo:link (*State).Seti C.lua_seti
+//llgo:link (*State).Seti C.lua_seti
 func (self *State) Seti(idx c.Int, n Integer) {
 }
 
-// llgo:link (*State).Rawset C.lua_rawset
+//llgo:link (*State).Rawset C.lua_rawset
 func (self *State) Rawset(idx c.Int) {
 }
 
-// llgo:link (*State).Rawseti C.lua_rawseti
+//llgo:link (*State).Rawseti C.lua_rawseti
 func (self *State) Rawseti(idx c.Int, n Integer) {
 }
 
-// llgo:link (*State).Rawsetp C.lua_rawsetp
+//llgo:link (*State).Rawsetp C.lua_rawsetp
 func (self *State) Rawsetp(idx c.Int, p unsafe.Pointer) {
 }
 
-// llgo:link (*State).Setmetatable C.lua_setmetatable
+//llgo:link (*State).Setmetatable C.lua_setmetatable
 func (self *State) Setmetatable(objindex c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Setiuservalue C.lua_setiuservalue
+//llgo:link (*State).Setiuservalue C.lua_setiuservalue
 func (self *State) Setiuservalue(idx c.Int, n c.Int) c.Int {
 	return 0
 }
 
 // * 'load' and 'call' functions (load and run Lua code)
 //
-// llgo:link (*State).Callk C.lua_callk
+//llgo:link (*State).Callk C.lua_callk
 func (self *State) Callk(nargs c.Int, nresults c.Int, ctx KContext, k KFunction) {
 }
 
-// llgo:link (*State).Pcallk C.lua_pcallk
+//llgo:link (*State).Pcallk C.lua_pcallk
 func (self *State) Pcallk(nargs c.Int, nresults c.Int, errfunc c.Int, ctx KContext, k KFunction) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Load C.lua_load
+//llgo:link (*State).Load C.lua_load
 func (self *State) Load(reader Reader, dt unsafe.Pointer, chunkname *c.Char, mode *c.Char) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Dump C.lua_dump
+//llgo:link (*State).Dump C.lua_dump
 func (self *State) Dump(writer Writer, data unsafe.Pointer, strip c.Int) c.Int {
 	return 0
 }
 
 // * coroutine functions
 //
-// llgo:link (*State).Yieldk C.lua_yieldk
+//llgo:link (*State).Yieldk C.lua_yieldk
 func (self *State) Yieldk(nresults c.Int, ctx KContext, k KFunction) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Resume C.lua_resume
+//llgo:link (*State).Resume C.lua_resume
 func (self *State) Resume(from *State, narg c.Int, nres *c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Status C.lua_status
+//llgo:link (*State).Status C.lua_status
 func (self *State) Status() c.Int {
 	return 0
 }
 
-// llgo:link (*State).Isyieldable C.lua_isyieldable
+//llgo:link (*State).Isyieldable C.lua_isyieldable
 func (self *State) Isyieldable() c.Int {
 	return 0
 }
 
 // * Warning-related functions
 //
-// llgo:link (*State).Setwarnf C.lua_setwarnf
+//llgo:link (*State).Setwarnf C.lua_setwarnf
 func (self *State) Setwarnf(f WarnFunction, ud unsafe.Pointer) {
 }
 
-// llgo:link (*State).Warning C.lua_warning
+//llgo:link (*State).Warning C.lua_warning
 func (self *State) Warning(msg *c.Char, tocont c.Int) {
 }
 
-// llgo:link (*State).Gc C.lua_gc
+//llgo:link (*State).Gc C.lua_gc
 func (self *State) Gc(what c.Int, __llgo_va_list ...any) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Error C.lua_error
+//llgo:link (*State).Error C.lua_error
 func (self *State) Error() c.Int {
 	return 0
 }
 
-// llgo:link (*State).Next C.lua_next
+//llgo:link (*State).Next C.lua_next
 func (self *State) Next(idx c.Int) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Concat C.lua_concat
+//llgo:link (*State).Concat C.lua_concat
 func (self *State) Concat(n c.Int) {
 }
 
-// llgo:link (*State).Len C.lua_len
+//llgo:link (*State).Len C.lua_len
 func (self *State) Len(idx c.Int) {
 }
 
-// llgo:link (*State).Numbertocstring C.lua_numbertocstring
+//llgo:link (*State).Numbertocstring C.lua_numbertocstring
 func (self *State) Numbertocstring(idx c.Int, buff *c.Char) c.Uint {
 	return 0
 }
 
-// llgo:link (*State).Stringtonumber C.lua_stringtonumber
+//llgo:link (*State).Stringtonumber C.lua_stringtonumber
 func (self *State) Stringtonumber(s *c.Char) c.SizeT {
 	return 0
 }
 
-// llgo:link (*State).Getallocf C.lua_getallocf
+//llgo:link (*State).Getallocf C.lua_getallocf
 func (self *State) Getallocf(ud *unsafe.Pointer) Alloc {
 	return nil
 }
 
-// llgo:link (*State).Setallocf C.lua_setallocf
+//llgo:link (*State).Setallocf C.lua_setallocf
 func (self *State) Setallocf(f Alloc, ud unsafe.Pointer) {
 }
 
-// llgo:link (*State).Toclose C.lua_toclose
+//llgo:link (*State).Toclose C.lua_toclose
 func (self *State) Toclose(idx c.Int) {
 }
 
-// llgo:link (*State).Closeslot C.lua_closeslot
+//llgo:link (*State).Closeslot C.lua_closeslot
 func (self *State) Closeslot(idx c.Int) {
 }
 
-// llgo:link (*State).Getstack C.lua_getstack
+//llgo:link (*State).Getstack C.lua_getstack
 func (self *State) Getstack(level c.Int, ar *Debug) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Getinfo C.lua_getinfo
+//llgo:link (*State).Getinfo C.lua_getinfo
 func (self *State) Getinfo(what *c.Char, ar *Debug) c.Int {
 	return 0
 }
 
-// llgo:link (*State).Getlocal C.lua_getlocal
+//llgo:link (*State).Getlocal C.lua_getlocal
 func (self *State) Getlocal(ar *Debug, n c.Int) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Setlocal C.lua_setlocal
+//llgo:link (*State).Setlocal C.lua_setlocal
 func (self *State) Setlocal(ar *Debug, n c.Int) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Getupvalue C.lua_getupvalue
+//llgo:link (*State).Getupvalue C.lua_getupvalue
 func (self *State) Getupvalue(funcindex c.Int, n c.Int) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Setupvalue C.lua_setupvalue
+//llgo:link (*State).Setupvalue C.lua_setupvalue
 func (self *State) Setupvalue(funcindex c.Int, n c.Int) *c.Char {
 	return nil
 }
 
-// llgo:link (*State).Upvalueid C.lua_upvalueid
+//llgo:link (*State).Upvalueid C.lua_upvalueid
 func (self *State) Upvalueid(fidx c.Int, n c.Int) unsafe.Pointer {
 	return nil
 }
 
-// llgo:link (*State).Upvaluejoin C.lua_upvaluejoin
+//llgo:link (*State).Upvaluejoin C.lua_upvaluejoin
 func (self *State) Upvaluejoin(fidx1 c.Int, n1 c.Int, fidx2 c.Int, n2 c.Int) {
 }
 
-// llgo:link (*State).Sethook C.lua_sethook
+//llgo:link (*State).Sethook C.lua_sethook
 func (self *State) Sethook(func_ Hook, mask c.Int, count c.Int) {
 }
 
-// llgo:link (*State).Gethook C.lua_gethook
+//llgo:link (*State).Gethook C.lua_gethook
 func (self *State) Gethook() Hook {
 	return nil
 }
 
-// llgo:link (*State).Gethookmask C.lua_gethookmask
+//llgo:link (*State).Gethookmask C.lua_gethookmask
 func (self *State) Gethookmask() c.Int {
 	return 0
 }
 
-// llgo:link (*State).Gethookcount C.lua_gethookcount
+//llgo:link (*State).Gethookcount C.lua_gethookcount
 func (self *State) Gethookcount() c.Int {
 	return 0
+}
+func (self *State) Call(n c.Int, r c.Int) {
+	self.Callk(n, r, 0, nil)
+}
+func (self *State) Pcall(n c.Int, r c.Int, f c.Int) c.Int {
+	return self.Pcallk(n, r, f, 0, nil)
+}
+func (self *State) Yield(n c.Int) c.Int {
+	return self.Yieldk(n, 0, nil)
+}
+func (self *State) Tonumber(i c.Int) Number {
+	return self.Tonumberx(i, nil)
+}
+func (self *State) Tointeger(i c.Int) Integer {
+	return self.Tointegerx(i, nil)
+}
+func (self *State) Newtable() {
+	self.Createtable(0, 0)
+}
+func (self *State) Pushcfunction(f CFunction) {
+	self.Pushcclosure(f, 0)
+}
+func (self *State) Tostring(i c.Int) *c.Char {
+	return self.Tolstring(i, nil)
+}
+func (self *State) Insert(idx c.Int) {
+	self.Rotate(idx, 1)
+}
+func (self *State) Newuserdata(s c.SizeT) unsafe.Pointer {
+	return self.Newuserdatauv(s, 1)
+}
+func (self *State) Getuservalue(idx c.Int) c.Int {
+	return self.Getiuservalue(idx, 1)
+}
+func (self *State) Setuservalue(idx c.Int) c.Int {
+	return self.Setiuservalue(idx, 1)
+}
+func Resetthread(L *State) c.Int {
+	return Closethread(L, nil)
 }
