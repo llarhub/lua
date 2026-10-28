@@ -5,7 +5,7 @@ import (
 	_ "unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func GetData(L *lua.State) c.Int {
@@ -15,10 +15,10 @@ func GetData(L *lua.State) c.Int {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 
 	extra := (*int)(L.Getextraspace())
 	*extra = 42
@@ -31,7 +31,7 @@ func main() {
 	L.Pushcfunction(GetData)
 	L.Setglobal(c.Str("GetData"))
 
-	if L.Dostring(c.Str("print(GetData())")) != lua.OK {
+	if L.LDostring(c.Str("print(GetData())")) != lua.OK {
 		c.Printf(c.Str("Error: %s\n"), L.Tostring(-1))
 	}
 }

@@ -1,8 +1,21 @@
 package lua
 
 import (
+	"unsafe"
+
 	"github.com/goplus/lib/c"
 )
+
+/*
+@@ LUA_EXTRASPACE defines the size of a raw memory area associated with
+** a Lua state with very fast access.
+** CHANGE it if you need a different size.
+*/
+const EXTRASPACE = unsafe.Sizeof(c.Pointer(nil))
+
+func (L *State) Getextraspace() c.Pointer {
+	return c.Pointer(uintptr(c.Pointer(L)) - EXTRASPACE)
+}
 
 func (L *State) Isfunction(n c.Int) bool      { return L.Type(n) == c.Int(TFUNCTION) }
 func (L *State) Istable(n c.Int) bool         { return L.Type(n) == c.Int(TTABLE) }

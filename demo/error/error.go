@@ -4,14 +4,14 @@ import (
 	_ "unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
-	L.Openlibs()
-	if res := L.Loadstring(c.Str("function doubleNumber(x) ! return x * 2 end")); res != lua.OK {
+	L.LOpenlibs()
+	if res := L.LLoadstring(c.Str("function doubleNumber(x) ! return x * 2 end")); res != lua.OK {
 		c.Printf(c.Str("error: %s\n"), L.Tostring(-1))
 	}
 }
