@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func pushThread(state *lua.State, name string) {
@@ -15,10 +15,10 @@ func pushThread(state *lua.State, name string) {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 	pushThread(L, "main")
 	L.Pop(1)
 	newThread := L.Newthread()

@@ -4,15 +4,15 @@ import (
 	_ "unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
-	if res := L.Loadstring(c.Str("print('hello world')")); res != lua.OK {
+	L.LOpenlibs()
+	if res := L.LLoadstring(c.Str("print('hello world')")); res != lua.OK {
 		println("error")
 	}
 	if res := L.Pcall(0, 0, 0); res != lua.OK {

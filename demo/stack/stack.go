@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 // printStack prints the current stack of the given Lua state.
@@ -17,9 +17,9 @@ func printStack(L *lua.State, stateName *c.Char) {
 
 func main() {
 	// Create a new Lua state and open libraries
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
-	L.Openlibs()
+	L.LOpenlibs()
 
 	// Push initial values onto the stack
 	L.Pushstring(c.Str("Hello"))
@@ -68,7 +68,7 @@ func main() {
 	printStack(L, c.Str("L1"))
 
 	// Create a second Lua state
-	L1 := lua.Newstate__1()
+	L1 := lua.LNewstate()
 	defer L1.Close()
 
 	// Move two elements to the new state

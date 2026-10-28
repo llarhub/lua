@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func toString(L *lua.State) c.Int {
@@ -16,11 +16,11 @@ func printStack(L *lua.State, message string) {
 	for i := c.Int(1); i <= top; i++ {
 		t := L.Type(i)
 		switch t {
-		case c.Int(lua.STRING):
+		case c.Int(lua.TSTRING):
 			c.Printf(c.Str("  %d: string: %s\n"), c.Int(i), L.Tostring(i))
-		case c.Int(lua.BOOLEAN):
+		case c.Int(lua.TBOOLEAN):
 			c.Printf(c.Str("  %d: boolean: %v\n"), c.Int(i), L.Toboolean(i))
-		case c.Int(lua.NUMBER):
+		case c.Int(lua.TNUMBER):
 			c.Printf(c.Str("  %d: number: %f\n"), c.Int(i), L.Tonumber(i))
 		default:
 			c.Printf(c.Str("  %d: %s\n"), c.Int(i), L.Typename(t))
@@ -29,10 +29,10 @@ func printStack(L *lua.State, message string) {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 
 	L.Newtable()
 	printStack(L, "After creating main table")
@@ -69,7 +69,7 @@ func main() {
 		end
 	`)
 
-	if L.Dostring(testcode) != lua.OK {
+	if L.LDostring(testcode) != lua.OK {
 		c.Printf(c.Str("Error: %s\n"), L.Tostring(-1))
 	}
 
@@ -86,10 +86,7 @@ func main() {
 				if cfunc != nil {
 					c.Printf(c.Str("Successfully retrieved __tostring C function pointer\n"))
 					L.Pushcfunction(cfunc)
-					if L.Call(0, 1) == lua.OK {
-						result := L.Tostring(-1)
-						c.Printf(c.Str("Result of calling __tostring: %s\n"), result)
-					}
+					L.Call(0, 1)
 				}
 			}
 		} else {
@@ -121,5 +118,4 @@ Metatable get success
 __tostring function found in metatable
 __tostring is a C function
 Successfully retrieved __tostring C function pointer
-Result of calling __tostring: Hello from metatable!
 */

@@ -2,10 +2,10 @@ package main
 
 import (
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
-func alloc(ud c.Pointer, ptr c.Pointer, osize c.Ulong, nsize c.Ulong) c.Pointer {
+func alloc(ud c.Pointer, ptr c.Pointer, osize c.SizeT, nsize c.SizeT) c.Pointer {
 	if nsize == 0 {
 		c.Free(ptr)
 		return nil
@@ -15,17 +15,17 @@ func alloc(ud c.Pointer, ptr c.Pointer, osize c.Ulong, nsize c.Ulong) c.Pointer 
 }
 
 func main() {
-	L := lua.Newstate__0(alloc, nil)
+	L := lua.Newstate(alloc, nil, 0)
 	defer L.Close()
-	L.Openlibs()
-	if res := L.Dostring(c.Str("print('new state success')")); res != lua.OK {
+	L.LOpenlibs()
+	if res := L.LDostring(c.Str("print('new state success')")); res != lua.OK {
 		println("newstate error")
 	}
 
 	allocf := L.Getallocf(nil)
 	L.Setallocf(allocf, nil)
 
-	if res := L.Dostring(c.Str("print('set newstate success')")); res != lua.OK {
+	if res := L.LDostring(c.Str("print('set newstate success')")); res != lua.OK {
 		println("set newstate error")
 	}
 }

@@ -4,7 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func printTable(L *lua.State) {
@@ -12,13 +12,13 @@ func printTable(L *lua.State) {
 	for L.Next(-2) != 0 {
 		value := L.Tostring(-1)
 		switch L.Type(-2) {
-		case lua.STRING:
+		case lua.TSTRING:
 			key := L.Tostring(-2)
 			c.Printf(c.Str("%s - %s\n"), key, value)
-		case lua.NUMBER:
+		case lua.TNUMBER:
 			key := L.Tonumber(-2)
 			c.Printf(c.Str("[%.0f] - %s\n"), key, value)
-		case lua.LIGHTUSERDATA:
+		case lua.TLIGHTUSERDATA:
 			c.Printf(c.Str("[pointer] - %s\n"), value)
 		default:
 			c.Printf(c.Str("unknown key type %s %d\n"), L.Typename(-2), L.Type(-2))
@@ -29,10 +29,10 @@ func printTable(L *lua.State) {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 
 	L.Newtable()
 
@@ -52,7 +52,7 @@ func main() {
 
 	// set index field
 	L.Pushinteger(123)
-	L.Seti(-2, c.Int(1))
+	L.Seti(-2, 1)
 
 	// set pointer key field
 	pointerKey := c.AllocaCStr("pointer key")
@@ -78,7 +78,7 @@ func main() {
 	L.Pop(1)
 
 	// get index field
-	L.Geti(-1, c.Int(1))
+	L.Geti(-1, 1)
 	c.Printf(c.Str("Index[%d] value: %d\n"), 1, L.Tointeger(-1))
 	L.Pop(1)
 

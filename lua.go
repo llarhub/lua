@@ -226,8 +226,10 @@ func (self *State) Newthread() *State {
 	return self
 }
 
-//go:linkname Closethread C.lua_closethread
-func Closethread(L *State, from *State) c.Int
+//llgo:link (*State).Closethread C.lua_closethread
+func (self *State) Closethread(from *State) c.Int {
+	return 0
+}
 
 //llgo:link (*State).Atpanic C.lua_atpanic
 func (self *State) Atpanic(panicf CFunction) CFunction {
@@ -718,6 +720,6 @@ func (self *State) Getuservalue(idx c.Int) c.Int {
 func (self *State) Setuservalue(idx c.Int) c.Int {
 	return self.Setiuservalue(idx, 1)
 }
-func Resetthread(L *State) c.Int {
-	return Closethread(L, nil)
+func (self *State) Resetthread() c.Int {
+	return self.Closethread(nil)
 }

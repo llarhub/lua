@@ -4,14 +4,14 @@ import (
 	_ "unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 	code := c.Str(
 		`function processStrings(a, b, c)
 	print('Received string a: ' .. a)
@@ -20,7 +20,7 @@ func main() {
 	return a .. b .. c
 end`)
 
-	if res := L.Dostring(code); res != lua.OK {
+	if res := L.LDostring(code); res != lua.OK {
 		c.Printf(c.Str("error: %s\n"), L.Tostring(-1))
 	}
 
