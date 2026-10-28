@@ -4,7 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 type lightdata struct {
@@ -12,9 +12,9 @@ type lightdata struct {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
-	L.Openlibs()
+	L.LOpenlibs()
 
 	data := L.Newuserdata(unsafe.Sizeof(0))
 	*((*int)(data)) = 42
