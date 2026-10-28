@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func triggerError(L *lua.State) c.Int {
@@ -24,10 +24,10 @@ func customPanic(L *lua.State) c.Int {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 
 	L.Atpanic(customPanic)
 

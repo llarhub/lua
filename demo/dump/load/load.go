@@ -5,10 +5,10 @@ import (
 	"unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
-func reader(L *lua.State, data c.Pointer, size *c.Ulong) *c.Char {
+func reader(L *lua.State, data c.Pointer, size *c.SizeT) *c.Char {
 	file := (*os.File)(data)
 
 	fileInfo, err := file.Stat()
@@ -23,8 +23,7 @@ func reader(L *lua.State, data c.Pointer, size *c.Ulong) *c.Char {
 		return nil
 	}
 
-	*size = c.Ulong(bytesRead)
-
+	*size = c.SizeT(bytesRead)
 	if bytesRead > 0 {
 		return (*c.Char)(unsafe.Pointer(unsafe.SliceData(buffer)))
 	}
@@ -33,9 +32,9 @@ func reader(L *lua.State, data c.Pointer, size *c.Ulong) *c.Char {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
-	L.Openlibs()
+	L.LOpenlibs()
 
 	file, err := os.Open("../llgofunc.luac")
 	if err != nil {

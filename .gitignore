@@ -8,6 +8,8 @@
 *.so
 *.dylib
 
+*.luac
+
 *.txt
 .DS_Store
 _out/

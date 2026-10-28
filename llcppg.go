@@ -4,6 +4,15 @@ import (
 	"github.com/goplus/lib/c"
 )
 
+func (L *State) Isfunction(n c.Int) bool      { return L.Type(n) == c.Int(TFUNCTION) }
+func (L *State) Istable(n c.Int) bool         { return L.Type(n) == c.Int(TTABLE) }
+func (L *State) Islightuserdata(n c.Int) bool { return L.Type(n) == c.Int(TLIGHTUSERDATA) }
+func (L *State) Isnil(n c.Int) bool           { return L.Type(n) == c.Int(TNIL) }
+func (L *State) Isboolean(n c.Int) bool       { return L.Type(n) == c.Int(TBOOLEAN) }
+func (L *State) Isthread(n c.Int) bool        { return L.Type(n) == c.Int(TTHREAD) }
+func (L *State) Isnone(n c.Int) bool          { return L.Type(n) == c.Int(TNONE) }
+func (L *State) Isnoneornil(n c.Int) bool     { return L.Type(n) <= 0 }
+
 /*
  * Pseudo-indices
  * (-LUAI_MAXSTACK is the minimum valid index; we keep some free empty

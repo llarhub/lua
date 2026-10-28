@@ -5,10 +5,10 @@ import (
 	"unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
-func writer(L *lua.State, p c.Pointer, sz c.Ulong, ud c.Pointer) c.Int {
+func writer(L *lua.State, p c.Pointer, sz c.SizeT, ud c.Pointer) c.Int {
 	file := (*os.File)(ud)
 	data := unsafe.Slice((*byte)(p), sz)
 
@@ -21,11 +21,11 @@ func writer(L *lua.State, p c.Pointer, sz c.Ulong, ud c.Pointer) c.Int {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
-	L.Openlibs()
+	L.LOpenlibs()
 
-	if res := L.Loadstring(c.Str(`
+	if res := L.LLoadstring(c.Str(`
 	function greet(name)
 		return 'Hello, ' .. name .. '!'
 	end
@@ -52,5 +52,4 @@ func main() {
 	if L.Dump(writer, c.Pointer(file), 0) != lua.OK {
 		c.Printf(c.Str("Failed to dump Lua function\n"))
 	}
-
 }

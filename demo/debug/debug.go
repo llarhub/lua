@@ -4,7 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func Hook(L *lua.State, ar *lua.Debug) {
@@ -21,9 +21,9 @@ func Hook(L *lua.State, ar *lua.Debug) {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
-	L.Openlibs()
+	L.LOpenlibs()
 
 	L.Sethook(Hook, lua.MASKLINE, 0)
 
@@ -32,10 +32,9 @@ func main() {
                 print('Hello, ' .. name .. '!')
         end
         hello('llgo')`
-	if res := L.Dostring(c.Str(code)); res != lua.OK {
+	if res := L.LDostring(c.Str(code)); res != lua.OK {
 		c.Printf(c.Str("error: %s\n"), L.Tostring(-1))
 	}
-
 }
 
 /* Expected output:
