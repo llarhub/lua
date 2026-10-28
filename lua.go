@@ -24,6 +24,11 @@ const SIGNATURE = "\x1bLua"
 // option for multiple returns in 'lua_pcall' and 'lua_call'
 const MULTRET = -1
 
+// * Pseudo-indices
+// * (The stack size is limited to INT_MAX/2; we keep some free empty
+// * space after that to help overflow detection.)
+const REGISTRYINDEX = -1073742823
+
 // thread status
 const (
 	OK        = 0
@@ -35,8 +40,8 @@ const (
 )
 
 // * basic types
-const TNONE = -1
 const (
+	TNONE          = -1
 	TNIL           = 0
 	TBOOLEAN       = 1
 	TLIGHTUSERDATA = 2
@@ -46,8 +51,8 @@ const (
 	TFUNCTION      = 6
 	TUSERDATA      = 7
 	TTHREAD        = 8
+	NUMTYPES       = 9
 )
-const NUMTYPES = 9
 
 // minimum Lua stack available to a C function
 const MINSTACK = 20

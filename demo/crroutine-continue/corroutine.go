@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func countdownContinue(L *lua.State, status c.Int, ctx lua.KContext) c.Int {
@@ -16,21 +16,21 @@ func countdown(L *lua.State) c.Int {
 		L.Pushinteger(arg - 1)
 		L.Replace(lua.Upvalueindex(1))
 		L.Pushinteger(arg)
-		return L.Yieldk(1, c.Pointer(uintptr(0)), countdownContinue)
+		return L.Yieldk(1, lua.KContext(0), countdownContinue)
 	}
 	return 0
 }
 
 func createCountdown(L *lua.State) c.Int {
-	max := L.Checkinteger(1)
+	max := L.LCheckinteger(1)
 	L.Pushinteger(max)
 	L.Pushcclosure(countdown, 1)
 	return 1
 }
 
 func main() {
-	L := lua.Newstate__1()
-	L.Openlibs()
+	L := lua.LNewstate()
+	L.LOpenlibs()
 	defer L.Close()
 	L.Register(c.Str("create_countdown"), createCountdown)
 
@@ -49,11 +49,11 @@ func main() {
  print('Countdown finished');
 	`)
 
-	if L.Dostring(testcode) != lua.OK {
+	if L.LDostring(testcode) != lua.OK {
 		c.Printf(c.Str("Error: %s\n"), L.Tostring(-1))
 	}
 
-	L.Openlibs()
+	L.LOpenlibs()
 }
 
 /* Expected output:

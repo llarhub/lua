@@ -279,6 +279,9 @@ func (self *State) LCheckstring(n c.Int) *c.Char {
 func (self *State) LOptstring(n c.Int, d *c.Char) *c.Char {
 	return self.LOptlstring(n, d, nil)
 }
+func (self *State) LGetmetatable(n *c.Char) c.Int {
+	return self.Getfield(-1073742823, n)
+}
 func (self *State) LLoadbuffer(s *c.Char, sz c.SizeT, n *c.Char) c.Int {
 	return self.LLoadbufferx(s, sz, n, nil)
 }

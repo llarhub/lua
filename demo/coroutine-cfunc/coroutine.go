@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/goplus/lib/c"
-	"github.com/goplus/lib/c/lua"
+	"github.com/llarhub/lua"
 )
 
 func coroutineFunc(L *lua.State) c.Int {
@@ -13,10 +13,10 @@ func coroutineFunc(L *lua.State) c.Int {
 }
 
 func main() {
-	L := lua.Newstate__1()
+	L := lua.LNewstate()
 	defer L.Close()
 
-	L.Openlibs()
+	L.LOpenlibs()
 	co := L.Newthread()
 	L.Pushcfunction(coroutineFunc)
 	L.Xmove(co, 1)

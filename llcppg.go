@@ -4,21 +4,48 @@ import (
 	"github.com/goplus/lib/c"
 )
 
+/*
+ * Pseudo-indices
+ * (-LUAI_MAXSTACK is the minimum valid index; we keep some free empty
+ * space after that to help overflow detection)
+ */
+func Upvalueindex(i c.Int) c.Int {
+	return c.Int(REGISTRYINDEX) - i
+}
+
 // #define lua_pop(L,n)		lua_settop(L, -(n)-1)
-func (L *State) Pop(n c.Int) {
-	L.Settop(-(n) - 1)
+func (self *State) Pop(n c.Int) {
+	self.Settop(-(n) - 1)
 }
 
-func (L *State) LDofile(filename *c.Char) c.Int {
-	if loadResult := L.LLoadfile(filename); loadResult != 0 {
-		return loadResult
-	}
-	return L.Pcall(c.Int(0), c.Int(MULTRET), c.Int(0))
+// #define lua_remove(L,idx) (lua_rotate(L, (idx), -1), lua_pop(L, 1))
+func (L *State) Remove(idx c.Int) {
+	L.Rotate(idx, -1)
+	L.Pop(1)
 }
 
-func (L *State) LDostring(str *c.Char) c.Int {
-	if loadResult := L.LLoadstring(str); loadResult != 0 {
+// #define lua_replace(L,idx)  (lua_copy(L, -1, (idx)), lua_pop(L, 1))
+func (L *State) Replace(idx c.Int) {
+	L.Copy(-1, idx)
+	L.Pop(1)
+}
+
+// #define lua_register(L,n,f) (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
+func (L *State) Register(name *c.Char, f CFunction) {
+	L.Pushcfunction(f)
+	L.Setglobal(name)
+}
+
+func (self *State) LDofile(filename *c.Char) c.Int {
+	if loadResult := self.LLoadfile(filename); loadResult != 0 {
 		return loadResult
 	}
-	return L.Pcall(c.Int(0), c.Int(MULTRET), c.Int(0))
+	return self.Pcall(c.Int(0), c.Int(MULTRET), c.Int(0))
+}
+
+func (self *State) LDostring(str *c.Char) c.Int {
+	if loadResult := self.LLoadstring(str); loadResult != 0 {
+		return loadResult
+	}
+	return self.Pcall(c.Int(0), c.Int(MULTRET), c.Int(0))
 }
