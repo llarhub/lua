@@ -13,18 +13,18 @@ import (
 */
 const EXTRASPACE = unsafe.Sizeof(c.Pointer(nil))
 
-func (L *State) Getextraspace() c.Pointer {
-	return c.Pointer(uintptr(c.Pointer(L)) - EXTRASPACE)
+func (self *State) Getextraspace() c.Pointer {
+	return c.Pointer(uintptr(c.Pointer(self)) - EXTRASPACE)
 }
 
-func (L *State) Isfunction(n c.Int) bool      { return L.Type(n) == c.Int(TFUNCTION) }
-func (L *State) Istable(n c.Int) bool         { return L.Type(n) == c.Int(TTABLE) }
-func (L *State) Islightuserdata(n c.Int) bool { return L.Type(n) == c.Int(TLIGHTUSERDATA) }
-func (L *State) Isnil(n c.Int) bool           { return L.Type(n) == c.Int(TNIL) }
-func (L *State) Isboolean(n c.Int) bool       { return L.Type(n) == c.Int(TBOOLEAN) }
-func (L *State) Isthread(n c.Int) bool        { return L.Type(n) == c.Int(TTHREAD) }
-func (L *State) Isnone(n c.Int) bool          { return L.Type(n) == c.Int(TNONE) }
-func (L *State) Isnoneornil(n c.Int) bool     { return L.Type(n) <= 0 }
+func (self *State) Isfunction(n c.Int) bool      { return self.Type(n) == c.Int(TFUNCTION) }
+func (self *State) Istable(n c.Int) bool         { return self.Type(n) == c.Int(TTABLE) }
+func (self *State) Islightuserdata(n c.Int) bool { return self.Type(n) == c.Int(TLIGHTUSERDATA) }
+func (self *State) Isnil(n c.Int) bool           { return self.Type(n) == c.Int(TNIL) }
+func (self *State) Isboolean(n c.Int) bool       { return self.Type(n) == c.Int(TBOOLEAN) }
+func (self *State) Isthread(n c.Int) bool        { return self.Type(n) == c.Int(TTHREAD) }
+func (self *State) Isnone(n c.Int) bool          { return self.Type(n) == c.Int(TNONE) }
+func (self *State) Isnoneornil(n c.Int) bool     { return self.Type(n) <= 0 }
 
 /*
  * Pseudo-indices
@@ -41,21 +41,21 @@ func (self *State) Pop(n c.Int) {
 }
 
 // #define lua_remove(L,idx) (lua_rotate(L, (idx), -1), lua_pop(L, 1))
-func (L *State) Remove(idx c.Int) {
-	L.Rotate(idx, -1)
-	L.Pop(1)
+func (self *State) Remove(idx c.Int) {
+	self.Rotate(idx, -1)
+	self.Pop(1)
 }
 
 // #define lua_replace(L,idx)  (lua_copy(L, -1, (idx)), lua_pop(L, 1))
-func (L *State) Replace(idx c.Int) {
-	L.Copy(-1, idx)
-	L.Pop(1)
+func (self *State) Replace(idx c.Int) {
+	self.Copy(-1, idx)
+	self.Pop(1)
 }
 
 // #define lua_register(L,n,f) (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
-func (L *State) Register(name *c.Char, f CFunction) {
-	L.Pushcfunction(f)
-	L.Setglobal(name)
+func (self *State) Register(name *c.Char, f CFunction) {
+	self.Pushcfunction(f)
+	self.Setglobal(name)
 }
 
 func (self *State) LDofile(filename *c.Char) c.Int {
